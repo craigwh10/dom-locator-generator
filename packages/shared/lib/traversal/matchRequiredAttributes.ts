@@ -5,8 +5,13 @@ export const matchRequiredAttributes = (paths: string[], attrs: string[]) => pat
 
     const regexp = attrs.length > 1 ? attrs.join('|') : attrs[0];
 
+    // https://regex101.com/r/TiP1Y2/1
+    // transformed to \b\w*data-testid\w*\b=["-'][^"]*["-']
+    // v1 String.raw`\b\w*${regexp}\w*\b="(.*?)"`, 3 sep just "
+    // v2 --
+    //
     const attributes = new RegExp(
-        String.raw`\b\w*${regexp}\w*\b="(.*?)"`,
+        String.raw`\b\w*${regexp}\w*\b=["-'][^"-']*["-']`,
         'ig'
     );
 
