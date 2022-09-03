@@ -1,0 +1,24 @@
+{
+  "name": "react",
+  "version": "0.0.0",
+  "description": "generate locator objects for react projects",
+  "keywords": [
+    "locator",
+    "testing",
+    "pageobject"
+  ],
+  "author": "craigwh10 <craigwh10@gmail.com>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "lib/react.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "start": "ts-node lib/index.ts"
+  }
+}

@@ -1,0 +1,1 @@
+export { matchRequiredAttributes } from './matchRequiredAttributes';
