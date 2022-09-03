@@ -1,10 +1,7 @@
 {
-  "extends": "../../tsconfig.shared.json",
-  "compilerOptions": {
-    "outDir": "./dist"
-  },
-  "include": [
-    "./lib",
-    "__tests__"
-  ]
+   "extends": "../../tsconfig.shared.json",
+   "compilerOptions": {
+      "outDir": "./dist"
+   },
+   "include": ["./lib", "__tests__"]
 }

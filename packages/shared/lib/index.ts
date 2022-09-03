@@ -1,3 +1,3 @@
-import * as traversal from './traversal';
+import * as traversal from "./traversal";
 
 export { traversal };

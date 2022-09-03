@@ -3,10 +3,10 @@
  * https://jestjs.io/docs/configuration
  */
 
-const base = require('../../jest.config.base');
+const base = require("../../jest.config.base");
 
 module.exports = {
-  ...base,
-  name: 'shared',
-  displayName: 'shared',
+   ...base,
+   name: "shared",
+   displayName: "shared",
 };

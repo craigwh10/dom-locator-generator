@@ -1,0 +1,8 @@
+coverage
+examples
+notes
+packages/**/coverage
+node_modules
+yarn.lock
+yarn-error.log
+lerna.json

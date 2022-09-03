@@ -4,37 +4,16 @@
  */
 
 module.exports = {
-    roots: [
-        "<rootDir>/lib",
-        "<rootDir>/__tests__"
-    ],
-    transform: {
-        "^.+\\.ts$": "ts-jest",
-        "^.+\\.(js|jsx)$": "babel-jest",
-    },
-    testRegex: "(__tests__/.*.(test|spec)).(js?|ts?)$",
-    moduleFileExtensions: [
-        "ts",
-        "tsx",
-        "js",
-        "jsx",
-        "json",
-        "node"
-    ],
-    collectCoverage: true,
-    coveragePathIgnorePatterns: [
-        "(tests/.*.mock).(js?|ts?)$",
-    ],
-    verbose: true,
-    // rootDir: './../../',
+   roots: ["<rootDir>/lib", "<rootDir>/__tests__"],
+   transform: {
+      "^.+\\.ts$": "ts-jest",
+      "^.+\\.(js|jsx)$": "babel-jest",
+   },
+   testRegex: "(__tests__/.*.(test|spec)).(js?|ts?)$",
+   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+   collectCoverage: true,
+   coveragePathIgnorePatterns: ["(tests/.*.mock).(js?|ts?)$"],
+   verbose: true,
 
-    // clearMocks: true,
-    //
-    // // Indicates whether the coverage information should be collected while executing the test
-    //
-    //
-    //
-    runner: "jest-runner",
-    //
-    // preset: 'ts-jest',
+   runner: "jest-runner",
 };

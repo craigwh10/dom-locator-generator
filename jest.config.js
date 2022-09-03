@@ -3,13 +3,10 @@
  * https://jestjs.io/docs/configuration
  */
 
-import base from './jest.config.base';
+import base from "./jest.config.base";
 
 export default {
-    ...base,
-    projects:
-        [
-            "<rootDir>/packages/*/jest.config.ts"
-        ],
-    coverageDirectory: "<rootDir>/coverage/"
+   ...base,
+   projects: ["<rootDir>/packages/*/jest.config.ts"],
+   coverageDirectory: "<rootDir>/coverage/",
 };

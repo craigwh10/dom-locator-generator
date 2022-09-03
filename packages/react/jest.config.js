@@ -3,10 +3,10 @@
  * https://jestjs.io/docs/configuration
  */
 
-const base = require('../../jest.config.base');
+const base = require("../../jest.config.base");
 
 module.exports = {
-  ...base,
-  name: 'react',
-  displayName: 'react',
+   ...base,
+   name: "react",
+   displayName: "react",
 };
