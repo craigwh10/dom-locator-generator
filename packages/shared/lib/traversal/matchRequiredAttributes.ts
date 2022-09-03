@@ -8,10 +8,13 @@ export const matchRequiredAttributes = (paths: string[], attrs: string[]) => pat
     // https://regex101.com/r/TiP1Y2/1
     // transformed to \b\w*data-testid\w*\b=["-'][^"]*["-']
     // v1 String.raw`\b\w*${regexp}\w*\b="(.*?)"`, 3 sep just "
-    // v2 --
-    //
+    // v2 \b\w*data-testid\w*\b=["'{][^"'{}]*["'}]
+    // v3 \b\w*data-testid\w*\b=["'{]*[\S]*['}"]
+    //    - * is repeating previous match till next group
+    //    - [] is a set to match 1 character (can be repeated with *)
+    //    - \S is any non space character
     const attributes = new RegExp(
-        String.raw`\b\w*${regexp}\w*\b=["-'][^"-']*["-']`,
+        String.raw`\b\w*${regexp}\w*\b=["'{]*[\S]*['}"]`,
         'ig'
     );
 

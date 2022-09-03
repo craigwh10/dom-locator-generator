@@ -18,6 +18,10 @@ function App() {
         >
           Learn React
         </a>
+        <input
+          placeholder={"hello"}
+          data-testid="thisInput"
+        ></input>
       </header>
     </div>
   );
