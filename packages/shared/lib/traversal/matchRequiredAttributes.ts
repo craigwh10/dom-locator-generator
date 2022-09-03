@@ -27,7 +27,7 @@ export const matchRequiredAttributes = (
          ? {
               path: item,
               matches: itemsOfInterest.map((item) => {
-                 return item[0].replaceAll('"', "'");
+                 return item[0]?.replaceAll('"', "'");
               }),
            }
          : {
