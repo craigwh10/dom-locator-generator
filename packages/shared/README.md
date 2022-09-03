@@ -1,11 +1,9 @@
 # `shared`
 
-> TODO: description
+Candidates for this package are:
 
-## Usage
+- Features/Utilities which are shared/re-used across variants.
 
-```
-const shared = require('shared');
+Standards:
 
-// TODO: DEMONSTRATE API
-```
+- Tested and well typed.

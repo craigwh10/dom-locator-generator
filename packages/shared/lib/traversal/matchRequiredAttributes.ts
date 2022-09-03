@@ -1,6 +1,6 @@
 import { readFileSync } from "fs";
 
-export const matchRequiredAttributes = (paths: string[], attrs: string[]) => paths.map((item) => {
+export const matchRequiredAttributes = (paths: string[], attrs: string[]): MatchedAttributes => paths.map((item) => {
     const res = readFileSync(item).toString();
 
     const regexp = attrs.length > 1 ? attrs.join('|') : attrs[0];
@@ -20,16 +20,23 @@ export const matchRequiredAttributes = (paths: string[], attrs: string[]) => pat
 
     const itemsOfInterest = [...res.matchAll(attributes)];
     return itemsOfInterest.length ?
-            {
-                path: item,
-                matches: itemsOfInterest.map(
-                    (item) => {
-                        return item[0].replaceAll('\"', "'");
-                    })
-            }
-        :
-            {
-                path: item,
-                matches: null
-            }
-    })
+        {
+            path: item,
+            matches: itemsOfInterest.map(
+                (item) => {
+                    return item[0].replaceAll('\"', "'");
+                })
+        }
+    :
+        {
+            path: item,
+            matches: null
+        }
+});
+
+interface MatchedAttributeValues {
+    path: string;
+    matches: Array<string> | null
+}
+
+export type MatchedAttributes = Array<MatchedAttributeValues>;
