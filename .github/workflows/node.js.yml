@@ -29,3 +29,6 @@ jobs:
          - run: yarn lint
          - run: yarn prettier
          - run: yarn test:all
+           continue-on-error: true
+
+
