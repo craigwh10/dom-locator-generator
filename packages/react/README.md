@@ -18,6 +18,11 @@ export const locators = {
 
 ```js
 export const config = {
+    /**
+     * ./src by default, can traverse backwards.
+     * Where the package should start scanning from.
+     */
+    searchRoot: './src',
     attributesToMatch: ['data-testid', 'placeholder'],
     namingConvention: ({element, file, index}) => {
         // input-App-0
