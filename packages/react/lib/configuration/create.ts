@@ -1,14 +1,18 @@
 import prompts from 'prompts';
 import {generateBaseConfig, promptValidations} from "shared/lib/configuration";
 
-(async () => {
-   const responses = await prompts(
+export const create = async () => {
+
+    // prompts is mocked.
+    // validations are covered in shared.
+    /* istanbul ignore next */
+    const responses = await prompts(
        [
           {
              type: 'text',
              name: 'searchRoot',
              message: 'Where should this search for attributes from? (default is cwd)',
-             validate: value => promptValidations.isDir(value),
+              validate: value => promptValidations.isDir(value),
           },
           {
              type: 'list',
@@ -24,7 +28,6 @@ import {generateBaseConfig, promptValidations} from "shared/lib/configuration";
        ]
    );
 
-
    if (responses) {
       generateBaseConfig({
          searchRoot: responses.searchRoot,
@@ -32,4 +35,6 @@ import {generateBaseConfig, promptValidations} from "shared/lib/configuration";
          locationForFile: responses.locationForFile
       })
    }
-})()
+};
+
+export default create();

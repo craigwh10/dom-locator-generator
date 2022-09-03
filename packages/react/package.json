@@ -20,6 +20,7 @@
   ],
   "scripts": {
     "start": "ts-node lib/index.ts",
-    "config:gen":  "ts-node lib/configuration/create.ts"
+    "config:gen":  "ts-node lib/configuration/create.ts",
+    "test":  "jest"
   }
 }
