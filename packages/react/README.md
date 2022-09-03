@@ -40,5 +40,5 @@ export const config = {
 Using either yarn or npm.
 
 ```shell
-   $ <npm/yarn> <add/i> @dlg/react
+   $ <npm/yarn> <add/i> -D @dlg/react
 ```
