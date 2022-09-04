@@ -1,14 +1,23 @@
 import { matchItemOrItems } from "./matchItemOrItems";
 
+/**
+ * @example
+ * data-testid={''}
+ * data-testid={'a b'}
+ * data-testid={`item-${index}`}
+ * placeholder="your name"
+ * id='#header'
+ * data-testid={"a"}
+ */
 export const matchItemOrItemsAsAttributes = (items: string[]) => {
    const itemsOrItems = matchItemOrItems(items);
 
    // order of OR |'s are sequential LTR so compound ones are priority.
-   const suffix = String.raw`["'{\`]*.*?(?:'}|"}|\`}|\`|'|")`;
+   const stringBeyondEquals = String.raw`["'{\`]*.*?(?:'}|"}|\`}|\`|'|")`;
 
    return items.length > 1
-      ? String.raw`\b\w*(?:${itemsOrItems})\w*\b=${suffix}`
-      : String.raw`\b\w*${itemsOrItems}\w*\b=${suffix}`;
+      ? String.raw`\b\w*(?:${itemsOrItems})\w*\b=${stringBeyondEquals}`
+      : String.raw`\b\w*${itemsOrItems}\w*\b=${stringBeyondEquals}`;
 };
 
 /* NOTE:
