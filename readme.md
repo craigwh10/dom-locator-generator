@@ -97,6 +97,7 @@ describe(Input.name, () => {
 <tr>
 <td>Regression</td>
 <td>
+
 <pre lang="ts">
 // PageObjects/Home.ts
 
@@ -121,8 +122,10 @@ export class HomePage {
 }
 
 </pre>
+
 </td>
 <td>
+
 <pre lang="ts">
 // PageObjects/Home.ts
 
@@ -138,6 +141,7 @@ export class HomePage {
    }
 }
 </pre>
+
 </td>
 </tr>
 <tr>
