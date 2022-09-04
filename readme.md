@@ -7,6 +7,38 @@ $ yarn test:all
 
 ## Vision of usage
 
+### Method
+
+```ts
+/**
+ * file: relative root or component to infer file path
+ * attributesToGet: data-testid, placeholder, class, className, testId, ... (element/component attribute)
+ */
+type getLocator = (file: ReactElement | string, attributesToGet: string[], options: Options) => {
+    // how best to identify has not been decided yet.
+    [attributeIdentifier]: {
+        xPath: {
+            // dependent on spikes around this.
+            // there are packages to parse to xPath
+            // [data-testid='val']
+            default: string     
+        },
+       // val
+       default: string;
+    }
+}
+
+interface Options {
+   /**
+    * component: searches only within the scope of the file.
+    * page: searches deep nested dependencies within the file.
+    */
+   scope: 'component' | 'page'
+}
+```
+
+### Comparison
+
 <table>
 <tr>
 <th></th>
