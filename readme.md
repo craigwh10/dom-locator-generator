@@ -1,4 +1,6 @@
-## Run
+![badge](https://shields.io/badge/global--coverage-100-green)  ![dlg-ci/build](https://github.com/craigwh10/dom-locator-generator/actions/workflows/node.js.yml/badge.svg)
+
+## Quick start
 
 ```sh
 $ yarn
