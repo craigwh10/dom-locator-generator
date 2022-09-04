@@ -16,6 +16,7 @@ $ yarn test:all
 <tr>
 <td>Unit</td>
 <td>
+
 <pre lang="tsx">
 // Input.test.tsx
 
@@ -51,10 +52,11 @@ describe(Input.name, () => {
       expect(spy).not.toBeCalledWith("hello"); 
    });
 });
-
 </pre>
+
 </td>
 <td>
+
 <pre lang="tsx">
 // Input.test.tsx
 
@@ -65,7 +67,7 @@ describe(Input.name, () => {
    it("should call aFunction if type in input and click submit", () => {
       const spy = jest.spyOn(window, "alert");
       const element = render(<Input />);
-      
+         
       const input = container.getByTestId("input");
       const button = container.getByTestId("button1");
       
@@ -89,6 +91,7 @@ describe(Input.name, () => {
 });
 
 </pre>
+
 </td>
 </tr>
 <tr>
