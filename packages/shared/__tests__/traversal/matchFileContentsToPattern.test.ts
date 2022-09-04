@@ -1,7 +1,7 @@
-import { matchRequiredAttributes } from "../../lib/traversal";
+import { matchFileContentsToPattern } from "../../lib/traversal";
 import * as path from "path";
 
-describe(matchRequiredAttributes.name, () => {
+describe(matchFileContentsToPattern.name, () => {
    const cwdPath = path.resolve(
       process.cwd(),
       "../../examples/example-react-app/src/App.js"
@@ -9,7 +9,7 @@ describe(matchRequiredAttributes.name, () => {
    const paths = [cwdPath];
 
    it("should find testid in react example repo, with mixture of single quote and double quote surrounded testids", () => {
-      expect(matchRequiredAttributes(paths, ["data-testid"])).toEqual([
+      expect(matchFileContentsToPattern(paths, ["data-testid"])).toEqual([
          {
             matches: [
                "data-testid='paragraph'",
@@ -22,7 +22,7 @@ describe(matchRequiredAttributes.name, () => {
    });
 
    it("should grab attributes wrapped in curly braces and get non testid attrs if passed in", () => {
-      expect(matchRequiredAttributes(paths, ["placeholder"])).toEqual([
+      expect(matchFileContentsToPattern(paths, ["placeholder"])).toEqual([
          {
             matches: ["placeholder={'hello'}"],
             path: cwdPath,
@@ -32,7 +32,7 @@ describe(matchRequiredAttributes.name, () => {
 
    it("should grab multiple attributes when placeholder and data-testid is passed in", () => {
       expect(
-         matchRequiredAttributes(paths, ["data-testid", "placeholder"])
+         matchFileContentsToPattern(paths, ["data-testid", "placeholder"])
       ).toEqual([
          {
             matches: [

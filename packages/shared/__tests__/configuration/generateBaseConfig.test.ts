@@ -19,6 +19,9 @@ console.log = jest.fn();
 
 /**End Mocking*/
 
+// Note: ts-ignore on mockimplementations as inferring improprerly.
+// TODO: Fix this (P5)
+
 describe(generateBaseConfig.name, () => {
    const promptResult = {
       searchRoot: "src",
@@ -40,6 +43,7 @@ describe(generateBaseConfig.name, () => {
 
       jest
          .spyOn(fs, "writeFile")
+         // @ts-ignore
          .mockImplementation((path, data, options, cb) => {
             return cb(null); // No error.
          });
@@ -86,6 +90,7 @@ describe(generateBaseConfig.name, () => {
 
       jest
          .spyOn(fs, "writeFile")
+         // @ts-ignore
          .mockImplementation((path, data, options, cb) => {
             return cb(null); // No error.
          });
@@ -141,6 +146,7 @@ describe(generateBaseConfig.name, () => {
 
       jest
          .spyOn(fs, "writeFile")
+         // @ts-ignore
          .mockImplementation((path, data, options, cb) => {
             return cb(error); // No error.
          });
@@ -163,6 +169,7 @@ describe(generateBaseConfig.name, () => {
 
       jest
          .spyOn(fs, "writeFile")
+         // @ts-ignore
          .mockImplementation((path, data, options, cb) => {
             return cb(null); // No error.
          });

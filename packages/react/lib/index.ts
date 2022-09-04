@@ -29,7 +29,7 @@ const rootPath = process.argv[0];
       },
    });
 
-   const matches = traversal.matchRequiredAttributes(paths, ["input"]);
+   const matches = traversal.matchFileContentsToPattern(paths, ["input"]);
 
    console.log(matches);
 })(rootPath);

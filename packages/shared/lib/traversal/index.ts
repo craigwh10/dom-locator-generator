@@ -1,1 +1,1 @@
-export { matchRequiredAttributes } from "./matchRequiredAttributes";
+export { matchFileContentsToPattern } from "./matchFileContentsToPattern";
