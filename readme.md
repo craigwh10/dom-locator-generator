@@ -14,14 +14,14 @@ $ yarn test:all
 
 ## Contributing
 
-- [Kanban Board](https://github.com/users/craigwh10/projects/2/views/1)
-- Ensure to read through relevant readmes
-- Comment on tickets if require support
+-  [Kanban Board](https://github.com/users/craigwh10/projects/2/views/1)
+-  Ensure to read through relevant readmes
+-  Comment on tickets if require support
 
 ### Onboarding
 
-- https://lerna.js.org
-- https://www.typescriptlang.org
-- https://www.npmjs.com/package/globby
-- https://nodejs.org/docs/latest-v17.x/api/
-- /notes/plan.md
+-  https://lerna.js.org
+-  https://www.typescriptlang.org
+-  https://www.npmjs.com/package/globby
+-  https://nodejs.org/docs/latest-v17.x/api/
+-  /notes/plan.md

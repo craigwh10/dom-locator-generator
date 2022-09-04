@@ -20,22 +20,26 @@ const baseConfig = (baseConfigInputs: BaseConfigInputs) => {
    };
 };
 
-export const generateBaseConfig = (baseConfigInputs: BaseConfigInputs) => {
+export const generateBaseConfig = async (baseConfigInputs: BaseConfigInputs) => {
    const pathAtCwd = path.resolve(process.cwd(), "./dlg.config.js");
 
    fs.writeFile(pathAtCwd, "module.exports =", { encoding: "utf-8" }, (err) => {
       if (err) {
-         console.error("@dlg", "error creating configuration.");
-         console.error(err);
+         console.error("@dlg - error creating configuration.");
+         console.error(err.message);
+
+         return;
       }
 
       fs.appendFile(
          pathAtCwd,
          util.inspect(baseConfig(baseConfigInputs)),
-         () => {
+         (err) => {
             if (err) {
-               console.error("@dlg", "error creating configuration content.");
-               console.error(err);
+               console.error("@dlg - error creating configuration content.");
+               console.error(err.message);
+
+               return;
             }
 
             console.log(
