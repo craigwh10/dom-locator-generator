@@ -7,9 +7,16 @@ $ yarn test:all
 
 ## Vision of usage
 
-### With DLG
-
-```tsx
+<table>
+<tr>
+<th></th>
+<th>with @dlg</th>
+<th>without @dlg</th>
+</tr>
+<tr>
+<td>Unit</td>
+<td>
+<pre lang="tsx">
 // Input.test.tsx
 
 import { Input } from "../../Input";
@@ -19,121 +26,147 @@ import { render, fireEvent, container } from "@testing-library/react";
 const elements = getLocators(Input, ["data-testid"], { scope: "component" });
 
 describe(Input.name, () => {
-   it("should call aFunction if type in input and click submit", () => {
-      const spy = jest.spyOn(window, "alert");
-      const element = render(<Input />);
+it("should call aFunction if type in input and click submit", () => {
+const spy = jest.spyOn(window, "alert");
+const element = render(<Input />);
 
-      const input = container.getByTestId(elements["input-0"]);
-      const button = container.getByTestId(elements["button-1"]);
+const input = container.getByTestId(elements["input-0"]);
+const button = container.getByTestId(elements["button-1"]);
 
-      fireEvent.type(input, "hello");
-      fireEvent.click(button);
+fireEvent.type(input, "hello");
+fireEvent.click(button);
 
-      expect(input).toHaveTextContent("");
-      expect(spy).toBeCalledWith("hello");
-   });
-   it("should not call aFunction if no input and click submit", () => {
-      const spy = jest.spyOn(window, "alert");
-      const element = render(<Input />);
-
-      const button = container.getByTestId(elements["button1"]);
-
-      fireEvent.click(button);
-
-      expect(input).toHaveTextContent("");
-      expect(spy).not.toBeCalledWith("hello");
-   });
+expect(input).toHaveTextContent("");
+expect(spy).toBeCalledWith("hello");
 });
-```
+it("should not call aFunction if no input and click submit", () => {
+const spy = jest.spyOn(window, "alert");
+const element = render(<Input />);
 
-```ts
-// PageObjects/Home.ts
+const button = container.getByTestId(elements["button1"]);
 
-import { getLocators } from "@dlg/react";
+fireEvent.click(button);
 
-const elements = getLocators("../../../src/pages", ["data-testid"], {
-   scope: "page",
+expect(input).toHaveTextContent("");
+expect(spy).not.toBeCalledWith("hello");
+});
 });
 
-export class HomePage {
-   get Input(): Promise<Element> {
-      return $(elements["input-0"].xPath);
-   }
-   get Button(): Promise<Element> {
-      return $(elements["button-1"].xPath);
-   }
-
-   get ItemListOptions(): Promise<Element[]> {
-      // could be $$(elements['list'].xPath.startWith())
-      return $$(
-         elements["list"].xPath.modify((item) => item.replace("=", "*="))
-      );
-   }
-}
-```
-
--  1 source of truth.
-   -  Less replication of work
-   -  Automatically maintained
--  Type checking on missing keys.
-
-### Without DLG
-
-```tsx
+</pre>
+</td>
+<td>
+<pre lang="tsx">
 // Input.test.tsx
 
 import { Input } from "../../Input";
 import { render, fireEvent, container } from "@testing-libray/react";
 
 describe(Input.name, () => {
-   it("should call aFunction if type in input and click submit", () => {
-      const spy = jest.spyOn(window, "alert");
-      const element = render(<Input />);
+it("should call aFunction if type in input and click submit", () => {
+const spy = jest.spyOn(window, "alert");
+const element = render(<Input />);
 
-      const input = container.getByTestId("input");
-      const button = container.getByTestId("button1");
+const input = container.getByTestId("input");
+const button = container.getByTestId("button1");
 
-      fireEvent.type(input, "hello");
-      fireEvent.click(button);
+fireEvent.type(input, "hello");
+fireEvent.click(button);
 
-      expect(input).toHaveTextContent("");
-      expect(spy).toBeCalledWith("hello");
-   });
-   it("should not call aFunction if no input and click submit", () => {
-      const spy = jest.spyOn(window, "alert");
-      const element = render(<Input />);
-
-      const button = container.getByTestId("button1");
-
-      fireEvent.click(button);
-
-      expect(input).toHaveTextContent("");
-      expect(spy).not.toBeCalledWith("hello");
-   });
+expect(input).toHaveTextContent("");
+expect(spy).toBeCalledWith("hello");
 });
-```
+it("should not call aFunction if no input and click submit", () => {
+const spy = jest.spyOn(window, "alert");
+const element = render(<Input />);
 
-```ts
+const button = container.getByTestId("button1");
+
+fireEvent.click(button);
+
+expect(input).toHaveTextContent("");
+expect(spy).not.toBeCalledWith("hello");
+});
+});
+
+</pre>
+</td>
+<td>b</td>
+</tr>
+<tr>
+<td>Regression</td>
+<td>
+<pre lang="tsx">
+// PageObjects/Home.ts
+
+import { getLocators } from "@dlg/react";
+
+const elements = getLocators("../../../src/pages", ["data-testid"], {
+scope: "page",
+});
+
+export class HomePage {
+get Input(): Promise<Element> {
+return $(elements["input-0"].xPath);
+}
+get Button(): Promise<Element> {
+return $(elements["button-1"].xPath);
+}
+
+get ItemListOptions(): Promise<Element[]> {
+// could be $$(elements['list'].xPath.startWith())
+return $$(
+elements["list"].xPath.modify((item) => item.replace("=", "\*="))
+);
+}
+}
+
+</pre>
+</td>
+<td>
+<pre>
 // PageObjects/Home.ts
 
 export class HomePage {
-   get Input(): Promise<Element> {
-      return $('[data-testid="input"]');
-   }
-   get Button(): Promise<Element> {
-      return $('[data-testid="button1"]');
-   }
-   get ItemListOptions(): Promise<Element[]> {
-      return $$('[data-testid*="list"])');
-   }
+get Input(): Promise<Element> {
+return $('[data-testid="input"]');
 }
-```
+get Button(): Promise<Element> {
+return $('[data-testid="button1"]');
+}
+get ItemListOptions(): Promise<Element[]> {
+return $$('[data-testid*="list"])');
+}
+}
 
--  One to many sources of truths.
--  Annoying and unnecessary to maintain.
--  Not reactive (only when test fails).
-   -  No type safety
--  Easily modified
+</pre>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<ul>
+<li>1 source of truth.</li>
+<ul>
+<li>Less replication of work</li>
+<li>Automatically maintained</li>
+</ul>
+<li>Type checking on missing keys.</li>
+</ul>
+</td>
+<td>
+<ul>
+<li>Not reactive (only when test fails).</li>
+<ul>
+<li>Annoying to maintain.</li>
+<li>No type safety</li>
+</ul>
+<li>Multiple sources of truth.</li>
+<li>Not verbose</li>
+<li>Easy to change individually</li>
+</ul>
+</td>
+</tr>
+</table>
 
 ## Milestones
 
