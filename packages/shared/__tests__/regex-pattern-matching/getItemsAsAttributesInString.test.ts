@@ -1,12 +1,42 @@
 import { getItemsAsAttributesInString } from "../../lib/regex-pattern-matching";
 
+const generateCase = (
+   attributes: string[],
+   searchString: string,
+   expectedResult: string[],
+   negativeResult: Array<string | null | undefined | number>
+) => ({
+   attributes,
+   searchString,
+   expectedResult,
+   negativeResult,
+});
+
 const testSuite = {
-   0: {
-      attributes: ["data-testid"],
-      searchString: "data-testid='hello' hello test data id",
-      expectedResult: ["data-testid='hello'"],
-      negativeResult: ["data", "id", "test", "hello", "data-testid", null],
-   },
+   0: generateCase(
+      ["data-testid"],
+      "data-testid='hello' hello test data id",
+      ["data-testid='hello'"],
+      ["data", "id", "test", "hello", "data-testid", null]
+   ),
+   1: generateCase(
+      ["placeholder"],
+      "placeholder holdplace data-testid='testy' placeholder={'hi'}, placeholder='yo'",
+      ["placeholder={'hi'}", "placeholder='yo'"],
+      ["placeholder", "holdplace", "data-testid='testy'"]
+   ),
+   2: generateCase(
+      ["class"],
+      "class='px-8 col-lg-6' className={`egg-${idx}`}",
+      ["class='px-8 col-lg-6'"],
+      ["className={`egg-${idx}`}"]
+   ),
+   3: generateCase(
+      ["className"],
+      "class='px-8 col-lg-6' className={`egg-${idx}`}",
+      ["className={`egg-${idx}`}"],
+      ["class='px-8 col-lg-6'"]
+   ),
 };
 
 type suiteIter = typeof testSuite[0];

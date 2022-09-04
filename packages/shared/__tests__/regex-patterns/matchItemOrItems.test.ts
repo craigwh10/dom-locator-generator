@@ -2,7 +2,7 @@ import { matchItemOrItems } from "../../lib/regex-patterns";
 
 describe(matchItemOrItems.name, () => {
    it("should generate appropriate regex for single item", () => {
-      expect(matchItemOrItems(["ITEM"])).toEqual(String.raw`ITEM`);
+      expect(matchItemOrItems(["ITEM"])).toEqual(String.raw`\bITEM\b`);
    });
    it("should generate appropriate regex for multiple items", () => {
       expect(matchItemOrItems(["ITEM-1", "ITEM-2"])).toEqual(

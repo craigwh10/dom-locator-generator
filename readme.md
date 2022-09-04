@@ -36,3 +36,6 @@ $ yarn test:all
    -  https://webdriver.io/docs/selectors/
    -  https://www.protractortest.org/#/locators
 -  /notes/plan.md
+-  regex:
+   -  https://regex101.com
+      -  ECMAScript flavour (note JS does not support features such as negative/pos lookahead/behind groups)

@@ -1,6 +1,9 @@
 /**
+ * @note
+ * \b \b is a word boundary, where you want
+ * to capture words rather than just characters or via repeaters (x*)
  * @example
- * ITEM
+ * \bITEM\b
  * @example
  * \bITEM\-1\b|\bITEM\-2\b
  */
@@ -12,5 +15,5 @@ export const matchItemOrItems = (items: string[]) => {
            })
            .join("|")
            .replaceAll("-", "\\-")
-      : items[0];
+      : String.raw`\b${items[0]}\b`;
 };
