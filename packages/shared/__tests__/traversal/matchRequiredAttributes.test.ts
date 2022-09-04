@@ -31,7 +31,9 @@ describe(matchRequiredAttributes.name, () => {
    });
 
    it("should grab multiple attributes when placeholder and data-testid is passed in", () => {
-      expect(matchRequiredAttributes(paths, ["data-testid", "placeholder"])).toEqual([
+      expect(
+         matchRequiredAttributes(paths, ["data-testid", "placeholder"])
+      ).toEqual([
          {
             matches: [
                "data-testid='paragraph'",
@@ -42,7 +44,7 @@ describe(matchRequiredAttributes.name, () => {
             path: cwdPath,
          },
       ]);
-   })
+   });
 
    // Todo: if data-testid={matcher}
    //  - find the flow of the prop

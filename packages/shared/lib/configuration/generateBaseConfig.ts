@@ -20,7 +20,9 @@ const baseConfig = (baseConfigInputs: BaseConfigInputs) => {
    };
 };
 
-export const generateBaseConfig = async (baseConfigInputs: BaseConfigInputs) => {
+export const generateBaseConfig = async (
+   baseConfigInputs: BaseConfigInputs
+) => {
    const pathAtCwd = path.resolve(process.cwd(), "./dlg.config.js");
 
    fs.writeFile(pathAtCwd, "module.exports =", { encoding: "utf-8" }, (err) => {

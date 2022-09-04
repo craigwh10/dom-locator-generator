@@ -4,15 +4,15 @@ import { generateBaseConfig } from "../../lib/configuration";
 import * as path from "path";
 import * as util from "util";
 import * as fs from "fs";
-import {mocked} from "jest-mock";
+import { mocked } from "jest-mock";
 
 const fsMock = mocked(fs);
 const utilMock = mocked(util);
 const pathMock = mocked(path);
 
-jest.mock('fs');
-jest.mock('util');
-jest.mock('path');
+jest.mock("fs");
+jest.mock("util");
+jest.mock("path");
 
 console.error = jest.fn();
 console.log = jest.fn();
@@ -20,165 +20,164 @@ console.log = jest.fn();
 /**End Mocking*/
 
 describe(generateBaseConfig.name, () => {
-    const promptResult = {
-        searchRoot: "src",
-        attributes: ["data-testid"],
-        locationForFile: "src",
-    };
-    const baseConfig = '{searchRoot: "src", attributes: ["data-testid"], locationForFile: "src"}';
+   const promptResult = {
+      searchRoot: "src",
+      attributes: ["data-testid"],
+      locationForFile: "src",
+   };
+   const baseConfig =
+      '{searchRoot: "src", attributes: ["data-testid"], locationForFile: "src"}';
 
-    beforeEach(() => {
-        jest.resetAllMocks();
-        jest.clearAllMocks();
-    })
+   beforeEach(() => {
+      jest.resetAllMocks();
+      jest.clearAllMocks();
+   });
 
-    it('should generate configuration from passed parameters if no errors',  async () => {
-        pathMock.resolve.mockReturnValue('./mockPath');
+   it("should generate configuration from passed parameters if no errors", async () => {
+      pathMock.resolve.mockReturnValue("./mockPath");
 
-        utilMock.inspect.mockReturnValue(
-            baseConfig
-        );
+      utilMock.inspect.mockReturnValue(baseConfig);
 
-        jest.spyOn(fs, 'writeFile').mockImplementation((path, data, options, cb) => {
+      jest
+         .spyOn(fs, "writeFile")
+         .mockImplementation((path, data, options, cb) => {
             return cb(null); // No error.
-        })
-        jest.spyOn(fs, 'appendFile').mockImplementation((path, baseConfig, cb) => {
+         });
+      jest
+         .spyOn(fs, "appendFile")
+         .mockImplementation((path, baseConfig, cb) => {
             return cb(null); // No error
-        })
+         });
 
-        await generateBaseConfig(promptResult);
+      await generateBaseConfig(promptResult);
 
-        expect(pathMock.resolve).toBeCalledWith(
-            expect.anything(),
-            './dlg.config.js'
-        );
+      expect(pathMock.resolve).toBeCalledWith(
+         expect.anything(),
+         "./dlg.config.js"
+      );
 
-        expect(fsMock.writeFile).toBeCalledWith(
-            './mockPath',
-            'module.exports =',
-            {encoding: "utf-8"},
-            expect.anything()
-        )
+      expect(fsMock.writeFile).toBeCalledWith(
+         "./mockPath",
+         "module.exports =",
+         { encoding: "utf-8" },
+         expect.anything()
+      );
 
-        expect(fsMock.appendFile).toBeCalledWith(
-            './mockPath',
-            baseConfig,
-            expect.anything()
-        )
+      expect(fsMock.appendFile).toBeCalledWith(
+         "./mockPath",
+         baseConfig,
+         expect.anything()
+      );
 
-        expect(utilMock.inspect).toBeCalledWith(promptResult)
+      expect(utilMock.inspect).toBeCalledWith(promptResult);
 
-        expect(console.error).toHaveBeenCalledTimes(0);
+      expect(console.error).toHaveBeenCalledTimes(0);
 
-        expect(console.log).toHaveBeenCalledWith(
-            "@dlg - successfully created dlg.config.js at",
-            './mockPath'
-        )
-    })
+      expect(console.log).toHaveBeenCalledWith(
+         "@dlg - successfully created dlg.config.js at",
+         "./mockPath"
+      );
+   });
 
-    it('should generate configuration from passed parameters if no errors',  async () => {
-        pathMock.resolve.mockReturnValue('./mockPath');
+   it("should generate configuration from passed parameters if no errors", async () => {
+      pathMock.resolve.mockReturnValue("./mockPath");
 
-        utilMock.inspect.mockReturnValue(
-            baseConfig
-        );
+      utilMock.inspect.mockReturnValue(baseConfig);
 
-        jest.spyOn(fs, 'writeFile').mockImplementation((path, data, options, cb) => {
+      jest
+         .spyOn(fs, "writeFile")
+         .mockImplementation((path, data, options, cb) => {
             return cb(null); // No error.
-        })
-        jest.spyOn(fs, 'appendFile').mockImplementation((path, baseConfig, cb) => {
+         });
+      jest
+         .spyOn(fs, "appendFile")
+         .mockImplementation((path, baseConfig, cb) => {
             return cb(null); // No error
-        })
+         });
 
-        await generateBaseConfig({
-                searchRoot: '',
-                attributes: [''],
-                locationForFile: ''
-        });
+      await generateBaseConfig({
+         searchRoot: "",
+         attributes: [""],
+         locationForFile: "",
+      });
 
-        expect(pathMock.resolve).toBeCalledWith(
-            expect.anything(),
-            './dlg.config.js'
-        );
+      expect(pathMock.resolve).toBeCalledWith(
+         expect.anything(),
+         "./dlg.config.js"
+      );
 
-        expect(fsMock.writeFile).toBeCalledWith(
-            './mockPath',
-            'module.exports =',
-            {encoding: "utf-8"},
-            expect.anything()
-        )
+      expect(fsMock.writeFile).toBeCalledWith(
+         "./mockPath",
+         "module.exports =",
+         { encoding: "utf-8" },
+         expect.anything()
+      );
 
-        expect(fsMock.appendFile).toBeCalledWith(
-            './mockPath',
-            baseConfig,
-            expect.anything()
-        )
+      expect(fsMock.appendFile).toBeCalledWith(
+         "./mockPath",
+         baseConfig,
+         expect.anything()
+      );
 
-        expect(utilMock.inspect).toBeCalledWith({
-            searchRoot: './src',
-            attributes: ['data-testid'],
-            locationForFile: './testAssets/appLocators.js'
-        })
+      expect(utilMock.inspect).toBeCalledWith({
+         searchRoot: "./src",
+         attributes: ["data-testid"],
+         locationForFile: "./testAssets/appLocators.js",
+      });
 
-        expect(console.error).toHaveBeenCalledTimes(0);
+      expect(console.error).toHaveBeenCalledTimes(0);
 
-        expect(console.log).toHaveBeenCalledWith(
-            "@dlg - successfully created dlg.config.js at",
-            './mockPath'
-        )
-    })
+      expect(console.log).toHaveBeenCalledWith(
+         "@dlg - successfully created dlg.config.js at",
+         "./mockPath"
+      );
+   });
 
-    it('should not generate configuration if errors on writing file', async () => {
-        pathMock.resolve.mockReturnValue('./mockPath');
-        const error = new Error('writeFile error');
+   it("should not generate configuration if errors on writing file", async () => {
+      pathMock.resolve.mockReturnValue("./mockPath");
+      const error = new Error("writeFile error");
 
-        utilMock.inspect.mockReturnValue(
-            baseConfig
-        );
+      utilMock.inspect.mockReturnValue(baseConfig);
 
-        jest.spyOn(fs, 'writeFile').mockImplementation((path, data, options, cb) => {
+      jest
+         .spyOn(fs, "writeFile")
+         .mockImplementation((path, data, options, cb) => {
             return cb(error); // No error.
-        })
+         });
 
-        await generateBaseConfig(promptResult);
+      await generateBaseConfig(promptResult);
 
-        expect(console.error).toHaveBeenNthCalledWith(
-            1,
-            "@dlg - error creating configuration.",
-        )
+      expect(console.error).toHaveBeenNthCalledWith(
+         1,
+         "@dlg - error creating configuration."
+      );
 
-        expect(console.error).toHaveBeenNthCalledWith(
-            2,
-            error.message
-        )
-    })
+      expect(console.error).toHaveBeenNthCalledWith(2, error.message);
+   });
 
-    it('should not generate configuration if errors appending with baseConfig', async () => {
-        pathMock.resolve.mockReturnValue('./mockPath');
-        const error = new Error('appendFile error');
+   it("should not generate configuration if errors appending with baseConfig", async () => {
+      pathMock.resolve.mockReturnValue("./mockPath");
+      const error = new Error("appendFile error");
 
-        utilMock.inspect.mockReturnValue(
-            baseConfig
-        );
+      utilMock.inspect.mockReturnValue(baseConfig);
 
-        jest.spyOn(fs, 'writeFile').mockImplementation((path, data, options, cb) => {
+      jest
+         .spyOn(fs, "writeFile")
+         .mockImplementation((path, data, options, cb) => {
             return cb(null); // No error.
-        })
+         });
 
-        jest.spyOn(fs, 'appendFile').mockImplementation((path, data, cb) => {
-            return cb(error); // No error.
-        })
+      jest.spyOn(fs, "appendFile").mockImplementation((path, data, cb) => {
+         return cb(error); // No error.
+      });
 
-        await generateBaseConfig(promptResult);
+      await generateBaseConfig(promptResult);
 
-        expect(console.error).toHaveBeenNthCalledWith(
-            1,
-            "@dlg - error creating configuration content.",
-        )
+      expect(console.error).toHaveBeenNthCalledWith(
+         1,
+         "@dlg - error creating configuration content."
+      );
 
-        expect(console.error).toHaveBeenNthCalledWith(
-            2,
-            error.message
-        )
-    })
+      expect(console.error).toHaveBeenNthCalledWith(2, error.message);
+   });
 });
