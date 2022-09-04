@@ -30,6 +30,20 @@ describe(matchRequiredAttributes.name, () => {
       ]);
    });
 
+   it("should grab multiple attributes when placeholder and data-testid is passed in", () => {
+      expect(matchRequiredAttributes(paths, ["data-testid", "placeholder"])).toEqual([
+         {
+            matches: [
+               "data-testid='paragraph'",
+               "data-testid='anchor'",
+               "placeholder={'hello'}",
+               "data-testid='thisInput'",
+            ],
+            path: cwdPath,
+         },
+      ]);
+   })
+
    // Todo: if data-testid={matcher}
    //  - find the flow of the prop
    //  - working up the dependencies till we get the raw components of it
