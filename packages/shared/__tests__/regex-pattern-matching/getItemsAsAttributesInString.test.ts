@@ -13,24 +13,28 @@ const generateCase = (
 });
 
 const testSuite = {
+   // simple match
    0: generateCase(
       ["data-testid"],
       "data-testid='hello' hello test data id",
       ["data-testid='hello'"],
       ["data", "id", "test", "hello", "data-testid", null]
    ),
+   // wrapper sensitivity
    1: generateCase(
       ["placeholder"],
       "placeholder holdplace data-testid='testy' placeholder={'hi'}, placeholder='yo'",
       ["placeholder={'hi'}", "placeholder='yo'"],
       ["placeholder", "holdplace", "data-testid='testy'"]
    ),
+   // compound attributes
    2: generateCase(
       ["class"],
       "class='px-8 col-lg-6' className={`egg-${idx}`}",
       ["class='px-8 col-lg-6'"],
       ["className={`egg-${idx}`}"]
    ),
+   // {` `}
    3: generateCase(
       ["className"],
       "class='px-8 col-lg-6' className={`egg-${idx}`}",
