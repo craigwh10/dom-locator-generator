@@ -1,5 +1,3 @@
-# @dlg
-
 ## Run
 
 ```sh
@@ -9,14 +7,83 @@ $ yarn test:all
 
 ## Vision of usage
 
+### With DLG
+
+```tsx
+// Input.test.tsx
+
+import { Input } from "../../Input";
+import { getLocators } from "@dlg/react";
+import { render, fireEvent, container } from "@testing-library/react";
+
+const elements = getLocators(Input, ["data-testid"], { scope: "component" });
+
+describe(Input.name, () => {
+   it("should call aFunction if type in input and click submit", () => {
+      const spy = jest.spyOn(window, "alert");
+      const element = render(<Input />);
+
+      const input = container.getByTestId(elements["input-0"]);
+      const button = container.getByTestId(elements["button-1"]);
+
+      fireEvent.type(input, "hello");
+      fireEvent.click(button);
+
+      expect(input).toHaveTextContent("");
+      expect(spy).toBeCalledWith("hello");
+   });
+   it("should not call aFunction if no input and click submit", () => {
+      const spy = jest.spyOn(window, "alert");
+      const element = render(<Input />);
+
+      const button = container.getByTestId(elements["button1"]);
+
+      fireEvent.click(button);
+
+      expect(input).toHaveTextContent("");
+      expect(spy).not.toBeCalledWith("hello");
+   });
+});
+```
+
+```ts
+// PageObjects/Home.ts
+
+import { getLocators } from "@dlg/react";
+
+const elements = getLocators("../../../src/pages", ["data-testid"], {
+   scope: "page",
+});
+
+export class HomePage {
+   get Input(): Promise<Element> {
+      return $(elements["input-0"].xPath);
+   }
+   get Button(): Promise<Element> {
+      return $(elements["button-1"].xPath);
+   }
+
+   get ItemListOptions(): Promise<Element[]> {
+      // could be $$(elements['list'].xPath.startWith())
+      return $$(
+         elements["list"].xPath.modify((item) => item.replace("=", "*="))
+      );
+   }
+}
+```
+
+-  1 source of truth.
+   -  Less replication of work
+   -  Automatically maintained
+-  Type checking on missing keys.
+
 ### Without DLG
 
 ```tsx
-import { Input } from "../../Input";
-import { getLocators } from "@dlg/react";
-import { render, fireEvent, container } from "@testing-libray/react";
+// Input.test.tsx
 
-const elements = getLocators("../../Input", ["data-testid"]);
+import { Input } from "../../Input";
+import { render, fireEvent, container } from "@testing-libray/react";
 
 describe(Input.name, () => {
    it("should call aFunction if type in input and click submit", () => {
@@ -67,75 +134,6 @@ export class HomePage {
 -  Not reactive (only when test fails).
    -  No type safety
 -  Easily modified
-
-### With DLG
-
-```tsx
-// Input.test.tsx
-import { Input } from "../../Input";
-import { getLocators } from "@dlg/react";
-import { render, fireEvent, container } from "@testing-libray/react";
-
-const elements = getLocators("../../Input", ["data-testid"], {
-   scope: "component",
-});
-
-describe(Input.name, () => {
-   it("should call aFunction if type in input and click submit", () => {
-      const spy = jest.spyOn(window, "alert");
-      const element = render(<Input />);
-
-      const input = container.getByTestId(elements["input-0"]);
-      const button = container.getByTestId(elements["button-1"]);
-
-      fireEvent.type(input, "hello");
-      fireEvent.click(button);
-
-      expect(input).toHaveTextContent("");
-      expect(spy).toBeCalledWith("hello");
-   });
-   it("should not call aFunction if no input and click submit", () => {
-      const spy = jest.spyOn(window, "alert");
-      const element = render(<Input />);
-
-      const button = container.getByTestId(elements["button1"]);
-
-      fireEvent.click(button);
-
-      expect(input).toHaveTextContent("");
-      expect(spy).not.toBeCalledWith("hello");
-   });
-});
-```
-
-```ts
-// PageObjects/Home.ts
-
-const elements = getLocators("../../../src/pages", ["data-testid"], {
-   scope: "page",
-});
-
-export class HomePage {
-   get Input(): Promise<Element> {
-      return $(elements["input-0"].xPath);
-   }
-   get Button(): Promise<Element> {
-      return $(elements["button-1"].xPath);
-   }
-
-   get ItemListOptions(): Promise<Element[]> {
-      // could be $$(elements['list'].xPath.startWith())
-      return $$(
-         elements["list"].xPath.modify((item) => item.replace("=", "*="))
-      );
-   }
-}
-```
-
--  1 source of truth.
-   -  Less replication of work
-   -  Automatically maintained
--  Type checking on missing keys.
 
 ## Milestones
 
