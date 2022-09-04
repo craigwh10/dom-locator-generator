@@ -26,32 +26,30 @@ import { render, fireEvent, container } from "@testing-library/react";
 const elements = getLocators(Input, ["data-testid"], { scope: "component" });
 
 describe(Input.name, () => {
-it("should call aFunction if type in input and click submit", () => {
-const spy = jest.spyOn(window, "alert");
-const element = render(<Input />);
-
+   it("should call aFunction if type in input and click submit", () => {
+      const spy = jest.spyOn(window, "alert");
+      const element = render(<Input />);
+      
       const input = container.getByTestId(elements["input-0"]);
       const button = container.getByTestId(elements["button-1"]);
-
+      
       fireEvent.type(input, "hello");
       fireEvent.click(button);
-
+      
       expect(input).toHaveTextContent("");
       expect(spy).toBeCalledWith("hello");
-
-});
-it("should not call aFunction if no input and click submit", () => {
-const spy = jest.spyOn(window, "alert");
-const element = render(<Input />);
-
+   });
+   it("should not call aFunction if no input and click submit", () => {
+      const spy = jest.spyOn(window, "alert");
+      const element = render(<Input />);
+      
       const button = container.getByTestId(elements["button1"]);
-
+      
       fireEvent.click(button);
-
+      
       expect(input).toHaveTextContent("");
-      expect(spy).not.toBeCalledWith("hello");
-
-});
+      expect(spy).not.toBeCalledWith("hello"); 
+   });
 });
 
 </pre>
@@ -64,32 +62,30 @@ import { Input } from "../../Input";
 import { render, fireEvent, container } from "@testing-library/react";
 
 describe(Input.name, () => {
-it("should call aFunction if type in input and click submit", () => {
-const spy = jest.spyOn(window, "alert");
-const element = render(<Input />);
-
+   it("should call aFunction if type in input and click submit", () => {
+      const spy = jest.spyOn(window, "alert");
+      const element = render(<Input />);
+      
       const input = container.getByTestId("input");
       const button = container.getByTestId("button1");
-
+      
       fireEvent.type(input, "hello");
       fireEvent.click(button);
-
+      
       expect(input).toHaveTextContent("");
       expect(spy).toBeCalledWith("hello");
-
-});
-it("should not call aFunction if no input and click submit", () => {
-const spy = jest.spyOn(window, "alert");
-const element = render(<Input />);
-
+   });
+   it("should not call aFunction if no input and click submit", () => {
+      const spy = jest.spyOn(window, "alert");
+      const element = render(<Input />);
+      
       const button = container.getByTestId("button1");
-
+      
       fireEvent.click(button);
-
+      
       expect(input).toHaveTextContent("");
       expect(spy).not.toBeCalledWith("hello");
-
-});
+   });
 });
 
 </pre>
@@ -104,21 +100,21 @@ const element = render(<Input />);
 import { getLocators } from "@dlg/react";
 
 const elements = getLocators("../../../src/pages", ["data-testid"], {
-scope: "page",
+   scope: "page",
 });
 
 export class HomePage {
-get Input(): Promise<Element> {
-return $(elements["input-0"].xPath);
-}
-get Button(): Promise<Element> {
-return $(elements["button-1"].xPath);
-}
+   get Input(): Promise<Element> {
+      return $(elements["input-0"].xPath);
+   }
+   get Button(): Promise<Element> {
+      return $(elements["button-1"].xPath);
+   }
 
-get ItemListOptions(): Promise<Element[]> {
-// could be $$(elements['list'].xPath.startWith())
+   get ItemListOptions(): Promise<Element[]> {
+      // could be $$(elements['list'].xPath.startWith())
       return $$(elements["list"].xPath.modify((item) => item.replace("=", "\*=")));
-}
+   }
 }
 
 </pre>
@@ -128,17 +124,16 @@ get ItemListOptions(): Promise<Element[]> {
 // PageObjects/Home.ts
 
 export class HomePage {
-get Input(): Promise<Element> {
-return $('[data-testid="input"]');
+   get Input(): Promise<Element> {
+      return $('[data-testid="input"]');
    }
    get Button(): Promise<Element> {
       return $('[data-testid="button1"]');
    }
    get ItemListOptions(): Promise<Element[]> {
       return $$('[data-testid*="list"])');
+   }
 }
-}
-
 </pre>
 </td>
 </tr>
