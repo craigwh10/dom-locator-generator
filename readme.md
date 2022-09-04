@@ -30,25 +30,27 @@ it("should call aFunction if type in input and click submit", () => {
 const spy = jest.spyOn(window, "alert");
 const element = render(<Input />);
 
-const input = container.getByTestId(elements["input-0"]);
-const button = container.getByTestId(elements["button-1"]);
+      const input = container.getByTestId(elements["input-0"]);
+      const button = container.getByTestId(elements["button-1"]);
 
-fireEvent.type(input, "hello");
-fireEvent.click(button);
+      fireEvent.type(input, "hello");
+      fireEvent.click(button);
 
-expect(input).toHaveTextContent("");
-expect(spy).toBeCalledWith("hello");
+      expect(input).toHaveTextContent("");
+      expect(spy).toBeCalledWith("hello");
+
 });
 it("should not call aFunction if no input and click submit", () => {
 const spy = jest.spyOn(window, "alert");
 const element = render(<Input />);
 
-const button = container.getByTestId(elements["button1"]);
+      const button = container.getByTestId(elements["button1"]);
 
-fireEvent.click(button);
+      fireEvent.click(button);
 
-expect(input).toHaveTextContent("");
-expect(spy).not.toBeCalledWith("hello");
+      expect(input).toHaveTextContent("");
+      expect(spy).not.toBeCalledWith("hello");
+
 });
 });
 
@@ -59,43 +61,44 @@ expect(spy).not.toBeCalledWith("hello");
 // Input.test.tsx
 
 import { Input } from "../../Input";
-import { render, fireEvent, container } from "@testing-libray/react";
+import { render, fireEvent, container } from "@testing-library/react";
 
 describe(Input.name, () => {
 it("should call aFunction if type in input and click submit", () => {
 const spy = jest.spyOn(window, "alert");
 const element = render(<Input />);
 
-const input = container.getByTestId("input");
-const button = container.getByTestId("button1");
+      const input = container.getByTestId("input");
+      const button = container.getByTestId("button1");
 
-fireEvent.type(input, "hello");
-fireEvent.click(button);
+      fireEvent.type(input, "hello");
+      fireEvent.click(button);
 
-expect(input).toHaveTextContent("");
-expect(spy).toBeCalledWith("hello");
+      expect(input).toHaveTextContent("");
+      expect(spy).toBeCalledWith("hello");
+
 });
 it("should not call aFunction if no input and click submit", () => {
 const spy = jest.spyOn(window, "alert");
 const element = render(<Input />);
 
-const button = container.getByTestId("button1");
+      const button = container.getByTestId("button1");
 
-fireEvent.click(button);
+      fireEvent.click(button);
 
-expect(input).toHaveTextContent("");
-expect(spy).not.toBeCalledWith("hello");
+      expect(input).toHaveTextContent("");
+      expect(spy).not.toBeCalledWith("hello");
+
 });
 });
 
 </pre>
 </td>
-<td>b</td>
 </tr>
 <tr>
 <td>Regression</td>
 <td>
-<pre lang="tsx">
+<pre lang="ts">
 // PageObjects/Home.ts
 
 import { getLocators } from "@dlg/react";
@@ -114,27 +117,25 @@ return $(elements["button-1"].xPath);
 
 get ItemListOptions(): Promise<Element[]> {
 // could be $$(elements['list'].xPath.startWith())
-return $$(
-elements["list"].xPath.modify((item) => item.replace("=", "\*="))
-);
+      return $$(elements["list"].xPath.modify((item) => item.replace("=", "\*=")));
 }
 }
 
 </pre>
 </td>
 <td>
-<pre>
+<pre lang="ts">
 // PageObjects/Home.ts
 
 export class HomePage {
 get Input(): Promise<Element> {
 return $('[data-testid="input"]');
-}
-get Button(): Promise<Element> {
-return $('[data-testid="button1"]');
-}
-get ItemListOptions(): Promise<Element[]> {
-return $$('[data-testid*="list"])');
+   }
+   get Button(): Promise<Element> {
+      return $('[data-testid="button1"]');
+   }
+   get ItemListOptions(): Promise<Element[]> {
+      return $$('[data-testid*="list"])');
 }
 }
 
@@ -145,23 +146,23 @@ return $$('[data-testid*="list"])');
 <td></td>
 <td>
 <ul>
-<li>1 source of truth.</li>
+<li>1 source of truth</li>
 <ul>
 <li>Less replication of work</li>
 <li>Automatically maintained</li>
 </ul>
-<li>Type checking on missing keys.</li>
+<li>Type checking on missing keys</li>
 </ul>
 </td>
 <td>
 <ul>
-<li>Not reactive (only when test fails).</li>
+<li>Not reactive (only when test fails)</li>
 <ul>
-<li>Annoying to maintain.</li>
+<li>Annoying to maintain</li>
 <li>No type safety</li>
 </ul>
-<li>Multiple sources of truth.</li>
-<li>Not verbose</li>
+<li>Multiple sources of truth</li>
+<li>Less code</li>
 <li>Easy to change individually</li>
 </ul>
 </td>
