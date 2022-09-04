@@ -1,9 +1,141 @@
+# @dlg
+
 ## Run
 
 ```sh
 $ yarn
 $ yarn test:all
 ```
+
+## Vision of usage
+
+### Without DLG
+
+```tsx
+import { Input } from "../../Input";
+import { getLocators } from "@dlg/react";
+import { render, fireEvent, container } from "@testing-libray/react";
+
+const elements = getLocators("../../Input", ["data-testid"]);
+
+describe(Input.name, () => {
+   it("should call aFunction if type in input and click submit", () => {
+      const spy = jest.spyOn(window, "alert");
+      const element = render(<Input />);
+
+      const input = container.getByTestId("input");
+      const button = container.getByTestId("button1");
+
+      fireEvent.type(input, "hello");
+      fireEvent.click(button);
+
+      expect(input).toHaveTextContent("");
+      expect(spy).toBeCalledWith("hello");
+   });
+   it("should not call aFunction if no input and click submit", () => {
+      const spy = jest.spyOn(window, "alert");
+      const element = render(<Input />);
+
+      const button = container.getByTestId("button1");
+
+      fireEvent.click(button);
+
+      expect(input).toHaveTextContent("");
+      expect(spy).not.toBeCalledWith("hello");
+   });
+});
+```
+
+```ts
+// PageObjects/Home.ts
+
+export class HomePage {
+   get Input(): Promise<Element> {
+      return $('[data-testid="input"]');
+   }
+   get Button(): Promise<Element> {
+      return $('[data-testid="button1"]');
+   }
+   get ItemListOptions(): Promise<Element[]> {
+      return $$('[data-testid*="list"])');
+   }
+}
+```
+
+-  One to many sources of truths.
+-  Annoying and unnecessary to maintain.
+-  Not reactive (only when test fails).
+   -  No type safety
+-  Easily modified
+
+### With DLG
+
+```tsx
+// Input.test.tsx
+import { Input } from "../../Input";
+import { getLocators } from "@dlg/react";
+import { render, fireEvent, container } from "@testing-libray/react";
+
+const elements = getLocators("../../Input", ["data-testid"], {
+   scope: "component",
+});
+
+describe(Input.name, () => {
+   it("should call aFunction if type in input and click submit", () => {
+      const spy = jest.spyOn(window, "alert");
+      const element = render(<Input />);
+
+      const input = container.getByTestId(elements["input-0"]);
+      const button = container.getByTestId(elements["button-1"]);
+
+      fireEvent.type(input, "hello");
+      fireEvent.click(button);
+
+      expect(input).toHaveTextContent("");
+      expect(spy).toBeCalledWith("hello");
+   });
+   it("should not call aFunction if no input and click submit", () => {
+      const spy = jest.spyOn(window, "alert");
+      const element = render(<Input />);
+
+      const button = container.getByTestId(elements["button1"]);
+
+      fireEvent.click(button);
+
+      expect(input).toHaveTextContent("");
+      expect(spy).not.toBeCalledWith("hello");
+   });
+});
+```
+
+```ts
+// PageObjects/Home.ts
+
+const elements = getLocators("../../../src/pages", ["data-testid"], {
+   scope: "page",
+});
+
+export class HomePage {
+   get Input(): Promise<Element> {
+      return $(elements["input-0"].xPath);
+   }
+   get Button(): Promise<Element> {
+      return $(elements["button-1"].xPath);
+   }
+
+   get ItemListOptions(): Promise<Element[]> {
+      // could be $$(elements['list'].xPath.startWith())
+      return $$(
+         elements["list"].xPath.modify((item) => item.replace("=", "*="))
+      );
+   }
+}
+```
+
+-  1 source of truth.
+   -  Less replication of work
+   -  Automatically maintained
+-  Type checking on missing keys.
 
 ## Milestones
 
